@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2015-2019 by Jonathan Naylor G4KLX
+ *   Copyright (C) 2019 by Chris Petersen K9EQ
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -39,6 +40,7 @@ public:
   unsigned int getMyPort() const;
   bool         getWiresXMakeUpper() const;
   bool         getWiresXCommandPassthrough() const;
+  bool         getWiresXDisable() const;
   bool         getDaemon() const;
 
   // The Info section
@@ -106,6 +108,7 @@ private:
   unsigned int m_myPort;
   bool         m_wiresXMakeUpper;
   bool         m_wiresXCommandPassthrough;
+  bool         m_wiresXDisable;
   bool         m_daemon;
 
   unsigned int m_rxFrequency;

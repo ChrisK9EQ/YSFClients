@@ -1,5 +1,6 @@
 /*
 *   Copyright (C) 2016-2019 by Jonathan Naylor G4KLX
+*   Copyright (C) 2019 by Chris Petersen K9EQ
 *
 *   This program is free software; you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -514,6 +515,9 @@ void CYSFGateway::createWiresX(CYSFNetwork* rptNetwork)
 
 void CYSFGateway::processWiresX(const unsigned char* buffer, unsigned char fi, unsigned char dt, unsigned char fn, unsigned char ft, bool dontProcessWiresXLocal, bool wiresXCommandPassthrough)
 {
+	if (m_conf.getWiresXDisable()) // Do not process Wires-X commands if disabled
+		return;
+
 	assert(buffer != NULL);
 
 	WX_STATUS status = m_wiresX->process(buffer + 35U, buffer + 14U, fi, dt, fn, ft, dontProcessWiresXLocal);
@@ -610,6 +614,9 @@ void CYSFGateway::processWiresX(const unsigned char* buffer, unsigned char fi, u
 
 void CYSFGateway::processDTMF(unsigned char* buffer, unsigned char dt)
 {
+	if (m_conf.getWiresXDisable()) // Do not process Wires-X commands if disabled
+		return;
+
 	assert(buffer != NULL);
 
 	WX_STATUS status = WXS_NONE;

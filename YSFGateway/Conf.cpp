@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2015-2019 by Jonathan Naylor G4KLX
+ *   Copyright (C) 2019 by Chris Petersen K9EQ
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -49,6 +50,7 @@ m_myAddress(),
 m_myPort(0U),
 m_wiresXMakeUpper(true),
 m_wiresXCommandPassthrough(false),
+m_wiresXDisable(),
 m_daemon(false),
 m_rxFrequency(0U),
 m_txFrequency(0U),
@@ -146,12 +148,14 @@ bool CConf::read()
 			for (unsigned int i = 0U; value[i] != 0; i++)
 				value[i] = ::toupper(value[i]);
 			m_callsign = value;
-		} else if (::strcmp(key, "Suffix") == 0) {
+		}
+		else if (::strcmp(key, "Suffix") == 0) {
 			// Convert the callsign to upper case
 			for (unsigned int i = 0U; value[i] != 0; i++)
 				value[i] = ::toupper(value[i]);
 			m_suffix = value;
-		} else if (::strcmp(key, "Id") == 0)
+		}
+		else if (::strcmp(key, "Id") == 0)
 			m_id = (unsigned int)::atoi(value);
 		else if (::strcmp(key, "RptAddress") == 0)
 			m_rptAddress = value;
@@ -165,6 +169,8 @@ bool CConf::read()
 			m_wiresXMakeUpper = ::atoi(value) == 1;
 		else if (::strcmp(key, "WiresXCommandPassthrough") == 0)
 			m_wiresXCommandPassthrough = ::atoi(value) == 1;
+		else if (::strcmp(key, "WiresXDisable") == 0)
+			m_wiresXDisable = ::atoi(value) == 1;
 		else if (::strcmp(key, "Daemon") == 0)
 			m_daemon = ::atoi(value) == 1;
 	} else if (section == SECTION_INFO) {
@@ -305,6 +311,11 @@ bool CConf::getWiresXMakeUpper() const
 bool CConf::getWiresXCommandPassthrough() const
 {
 	return m_wiresXCommandPassthrough;
+}
+
+bool CConf::getWiresXDisable() const
+{
+	return m_wiresXDisable;
 }
 
 bool CConf::getDaemon() const
